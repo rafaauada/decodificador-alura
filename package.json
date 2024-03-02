@@ -1,0 +1,8 @@
+{
+  "scripts": {
+    "dev": "nodemon ./assets/scripts/main.js"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.0"
+  }
+}
