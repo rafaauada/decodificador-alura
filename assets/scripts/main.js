@@ -16,25 +16,25 @@ const page = {
 
 
 function encryptButtonListener(){
-    page.insertion.encryptButton.style.cursor = 'pointer'
+    page.insertion.encryptButton.style.cursor = 'pointer';
     page.insertion.encryptButton.addEventListener('click', function(event) {
         if (event.target === page.insertion.encryptButton) {
             afterClick();
             exhibitText(page.insertion.textarea.value);
-            page.insertion.textarea.value = ''
-        }})
+            page.insertion.textarea.value = '';
+        };});
     
-}
+};
 
 function uncryptButtonListener(){
-    page.insertion.uncryptButton.style.cursor = 'pointer'
+    page.insertion.uncryptButton.style.cursor = 'pointer';
     page.insertion.uncryptButton.addEventListener('click', function(event) {
         if (event.target === page.insertion.uncryptButton) {
             afterClick();
             exhibitText(page.insertion.textarea.value); 
-            page.insertion.textarea.value = ''
+            page.insertion.textarea.value = '';
         }})
-}
+};
 
 function encryptText(text){
     text = text.replace(new RegExp('e', 'g'), "enter");
@@ -44,7 +44,7 @@ function encryptText(text){
     text = text.replace(new RegExp('u', 'g'), "ufat");
     text = text.replace(new RegExp('s', 'g'), "sudo");
     return text;
-}
+};
 
 function uncryptText(text){
     text = text.replace(new RegExp('enter', 'g'), "e");
@@ -54,7 +54,7 @@ function uncryptText(text){
     text = text.replace(new RegExp('ufat', 'g'), "u");
     text = text.replace(new RegExp('sudo', 'g'), "s");
     return text;
-}
+};
 
 function exhibitText(text){
     const outOfPatternRegex = new RegExp('[A-ZÀ-ÖØ-öø-ÿ0-9]');
@@ -63,19 +63,19 @@ function exhibitText(text){
         page.exhibition.textAfter.style.fontSize = '1rem';
         page.exhibition.textAfter.style.textAlign = 'center';
         page.exhibition.textAfter.innerText = 'Por favor, digite somente letras minúsculas e sem acento.';
-        document.getElementById('botao-copiar').style.display = 'none'
+        document.getElementById('botao-copiar').style.display = 'none';
     } else {
-        page.exhibition.textAfter.style.fontSize = '2rem';
+        page.exhibition.textAfter.style.fontSize = '1.8rem';
         page.exhibition.textAfter.style.textAlign = 'justify';
-        document.getElementById('botao-copiar').style.display = 'block'
+        document.getElementById('botao-copiar').style.display = 'block';
         copyButtonListener();
         if (event.target === page.insertion.encryptButton) { 
             page.exhibition.textAfter.innerText = encryptText(text);
         } else {
             page.exhibition.textAfter.innerText = uncryptText(text);
-        }
-    }  
-}
+        };
+    }; 
+};
 
 function afterClick(){
     page.exhibition.image.style.display = 'none';
@@ -83,7 +83,9 @@ function afterClick(){
     createCopyButton();
     page.exhibition.container.classList.remove('container__exibicao');
     page.exhibition.container.setAttribute('id', 'container-exibicao-depois');
-}
+    document.getElementById('botao-copiar').textContent = 'Copiar';
+    page.exhibition.textAfter.style.display = 'block';
+};
 
 let createCopyButton = (function() {
     let executed = false;
@@ -93,27 +95,27 @@ let createCopyButton = (function() {
             const copyButton = document.createElement('button');
     copyButton.textContent = 'Copiar';
     copyButton.setAttribute('id','botao-copiar');
-    copyButton.style.cursor = 'pointer'
-    page.exhibition.container.appendChild(copyButton)
-        }
+    copyButton.style.cursor = 'pointer';
+    page.exhibition.container.appendChild(copyButton);
+        };
     };
 })();
 
 function copyButtonListener(){
     document.getElementById('botao-copiar').addEventListener('click', ()=>{
         copyToClipboard(page.exhibition.textAfter.textContent);
-        alert('Tá na mão, texto copiado!')
-    })
-}
+        document.getElementById('botao-copiar').textContent = 'Tá na mão, texto copiado!';
+    });
+};
 
 function copyToClipboard(textAfter){
     navigator.permissions.query({ name: "clipboard-write" }).then((result) => {
         if (result.state === "granted" || result.state === "prompt") {
-            navigator.clipboard.writeText(textAfter)
-        }
+            navigator.clipboard.writeText(textAfter);
+        };
       });
     
-}
+};
 
 
 
